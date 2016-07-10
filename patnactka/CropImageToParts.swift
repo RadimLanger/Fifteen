@@ -9,42 +9,54 @@
 
 import UIKit
 
-class CropImageToParts {
+class CropImage {
     
     var imageStack = [CGImage]()
-    var cropImage = UIImage()
+    var cropInitializedImage = UIImage()
+    
+    var croppingImageName: String?
+    var cropImageToPiecesRows: Int?
+    var cropImageToPiecesColumns: Int?
     
     
-    init() {
-        initializeImage()
-        cropImagePutToArray()
+    init(croppingImageName: String?, cropImageToPiecesRows: Int?, cropImageToPiecesColumns: Int?) {
+        
+        self.croppingImageName = croppingImageName
+        
+        self.cropImageToPiecesRows = cropImageToPiecesRows
+        self.cropImageToPiecesColumns = cropImageToPiecesColumns
+        // crops and puts image parts into imageStack, If the variables for cropping image to parts are not null
+        if (croppingImageName != nil && cropImageToPiecesRows != nil && cropImageToPiecesColumns != nil) {
+            initializeImage(croppingImageName)
+            cropImageToPartsPutToArray(cropImageToPiecesRows!, cropImageToPiecesColumn: cropImageToPiecesColumns!)
+        }
     }
     
     
-    func initializeImage() {
-        cropImage = UIImage(named: "nickCrop.png")!
+    func initializeImage(nameOfImage: String?) {
+        if (nameOfImage != nil) {
+            cropInitializedImage = UIImage(named: nameOfImage!)!
+        }
     }
     
     
-    func cropImagePutToArray() {
+    func cropImageToPartsPutToArray(cropImageToPiecesRow: Int, cropImageToPiecesColumn: Int) {
         
-        let scale = cropImage.scale
+        let scale = cropInitializedImage.scale
         
-        let imageSize = CGSizeMake(cropImage.size.width/scale, cropImage.size.height/scale)
-//  4x4 cropping
-        for rowI in 0...3
-        {
-            for colI in 0...3
-            {
-                let imageSizeRect = CGRectMake(CGFloat(colI) * imageSize.width, CGFloat(rowI) * imageSize.height, imageSize.width, imageSize.height)
-
-                let onePieceImage = CGImageCreateWithImageInRect(cropImage.CGImage, imageSizeRect)
+        let imageSize = CGSizeMake(cropInitializedImage.size.width/scale, cropInitializedImage.size.height/scale)
+        
+        for rowIndex in 0...cropImageToPiecesRow - 1 {
+            for columnIndex in 0...cropImageToPiecesColumn - 1 {
+                let imageSizeRect = CGRectMake(CGFloat(columnIndex) * imageSize.width, CGFloat(rowIndex) * imageSize.height, imageSize.width, imageSize.height)
+                
+                let onePieceImage = CGImageCreateWithImageInRect(cropInitializedImage.CGImage, imageSizeRect)
                 imageStack.append(onePieceImage!)
                 
             }
         }
     }
     
-
+    
     
 }

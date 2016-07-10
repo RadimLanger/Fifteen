@@ -9,26 +9,47 @@
 import UIKit
 
 class ProgressCircleView: UIView {
-
+    
     let puzzleCount = 16
     let π: CGFloat = CGFloat(M_PI)
-
-    var counter: Int = 0 {
+    
+    
+    var counter: Int = 16 {
         didSet {
             if counter <=  puzzleCount {
                 //the view needs to be refreshed
+                setCircleColor(counter)
                 setNeedsDisplay()
             }
         }
     }
-    var outlineColor: UIColor = UIColor.yellowColor()
-    var counterColor: UIColor = UIColor.redColor()
+    var counterColor: UIColor = UIColor.greenColor()
+    var outlineColor: UIColor = UIColor.blueColor()
+    
+    // For setting color of outer and inner arc according the counter integer
+    func setCircleColor(partsOfCircleCorrect: Int) {
+        
+        if counter == puzzleCount {
+            counterColor = UIColor.greenColor()
+            outlineColor = UIColor.blueColor()
+        }
+        else if counter > puzzleCount / 2 {
+            counterColor = UIColor.orangeColor()
+            outlineColor = UIColor.purpleColor()
+        }
+        else {
+            counterColor = UIColor.redColor()
+            outlineColor = UIColor.yellowColor()
+        }
+    }
+    
     
     override func drawRect(rect: CGRect) {
-
+        
         let center = CGPoint(x:bounds.width/2, y: bounds.height/2)
+        
         let radius: CGFloat = max(bounds.width, bounds.height)
-        let arcWidth: CGFloat = 76
+        let arcWidth: CGFloat = (center.x + center.y) / 2.5
         let startAngle: CGFloat = 3 * π / 4
         let endAngle: CGFloat = π / 4
         

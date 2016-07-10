@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A1952CA1D3309150036BB39 /* TileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1952C91D3309150036BB39 /* TileView.swift */; };
+		0A1952CC1D3309400036BB39 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A1952CB1D3309400036BB39 /* Localizable.strings */; };
 		0A40574D1CE10A35003BFE7C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A40574C1CE10A35003BFE7C /* AppDelegate.swift */; };
 		0A40574F1CE10A35003BFE7C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A40574E1CE10A35003BFE7C /* ViewController.swift */; };
 		0A4057521CE10A35003BFE7C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A4057501CE10A35003BFE7C /* Main.storyboard */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A1952C91D3309150036BB39 /* TileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileView.swift; sourceTree = "<group>"; };
+		0A1952CB1D3309400036BB39 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		0A4057491CE10A35003BFE7C /* patnactka.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = patnactka.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A40574C1CE10A35003BFE7C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = patnactka/AppDelegate.swift; sourceTree = "<group>"; };
 		0A40574E1CE10A35003BFE7C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -63,10 +67,12 @@
 				0A40575E1CE10D1B003BFE7C /* unused */,
 				0A40574E1CE10A35003BFE7C /* ViewController.swift */,
 				0A40575F1CE1111D003BFE7C /* Tile.swift */,
+				0A1952C91D3309150036BB39 /* TileView.swift */,
 				0A6EEB391D14620800F10DAC /* CropImageToParts.swift */,
 				0A7F51161D219D8300C00DE5 /* ProgressCircleView.swift */,
 				0A4057531CE10A35003BFE7C /* Assets.xcassets */,
 				0A4057581CE10A35003BFE7C /* Info.plist */,
+				0A1952CB1D3309400036BB39 /* Localizable.strings */,
 			);
 			path = patnactka;
 			sourceTree = "<group>";
@@ -142,6 +148,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A4057571CE10A35003BFE7C /* LaunchScreen.storyboard in Resources */,
+				0A1952CC1D3309400036BB39 /* Localizable.strings in Resources */,
 				0A4057541CE10A35003BFE7C /* Assets.xcassets in Resources */,
 				0A4057521CE10A35003BFE7C /* Main.storyboard in Resources */,
 			);
@@ -158,6 +165,7 @@
 				0A7F51171D219D8300C00DE5 /* ProgressCircleView.swift in Sources */,
 				0A6EEB3A1D14620800F10DAC /* CropImageToParts.swift in Sources */,
 				0A40574D1CE10A35003BFE7C /* AppDelegate.swift in Sources */,
+				0A1952CA1D3309150036BB39 /* TileView.swift in Sources */,
 				0A4057601CE1111D003BFE7C /* Tile.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
