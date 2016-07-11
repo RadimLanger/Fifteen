@@ -14,7 +14,7 @@ class TileView: UIView {
     let randomizeButton = UIButton(type: UIButtonType.System)
     //    Matrix touple model
     var matrix = [[(Int,UIButton,image: CGImage)]]()
-    let sizeMatrix = 2 // square matrix 4 * 4
+    let sizeMatrix = 5 // square matrix 4 * 4
     let croppingImageName = "nickCrop.png"
     
     var blankTileCoordinates = (x: 0, y: 0)

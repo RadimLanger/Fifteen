@@ -51,13 +51,26 @@ class ViewController: UIViewController {
     }
     
     func drawCircle() {
-        let positionX = quaterViewWidth
-        let positionY = viewHeight * 0.65
-        
-        ProgressView!.frame = CGRectMake(positionX, positionY, circleProgressViewSize, circleProgressViewSize)
-        //        Setting the UIView background color to White = 1, but alpha = 0 -> only the circle will be visible
+//        Setting the UIView background color to White = 1, but alpha = 0 -> only the circle will be visible
         ProgressView!.backgroundColor = UIColor(white: 1, alpha: 0)
+
+        ProgressView!.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(ProgressView!)
+
+        
+        let widthConstraint = NSLayoutConstraint(item: ProgressView!, attribute: .Width, relatedBy: .Equal,
+                                                 toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 200)
+        
+        let heightConstraint = NSLayoutConstraint(item: ProgressView!, attribute: .Height, relatedBy: .Equal,
+                                                  toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 200)
+        
+        let xConstraint = NSLayoutConstraint(item: ProgressView!, attribute: .CenterX, relatedBy: .Equal, toItem: self.view, attribute: .CenterX, multiplier: 1, constant: 0)
+        
+        let yConstraint = NSLayoutConstraint(item: ProgressView!, attribute: .Bottom, relatedBy: .Equal, toItem: self.view, attribute: .Bottom, multiplier: 1, constant: -30)
+        
+        NSLayoutConstraint.activateConstraints([widthConstraint, heightConstraint, xConstraint, yConstraint])
+        
+        
     }
     
     func updateProgressCircleView() {
