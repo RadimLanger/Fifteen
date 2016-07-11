@@ -64,9 +64,11 @@ class ViewController: UIViewController {
         let heightConstraint = NSLayoutConstraint(item: ProgressView!, attribute: .Height, relatedBy: .Equal,
                                                   toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 200)
         
-        let xConstraint = NSLayoutConstraint(item: ProgressView!, attribute: .CenterX, relatedBy: .Equal, toItem: self.view, attribute: .CenterX, multiplier: 1, constant: 0)
+        let xConstraint = NSLayoutConstraint(item: ProgressView!, attribute: .CenterX, relatedBy: .Equal,
+                                             toItem: self.view, attribute: .CenterX, multiplier: 1, constant: 0)
         
-        let yConstraint = NSLayoutConstraint(item: ProgressView!, attribute: .Bottom, relatedBy: .Equal, toItem: self.view, attribute: .Bottom, multiplier: 1, constant: -30)
+        let yConstraint = NSLayoutConstraint(item: ProgressView!, attribute: .Bottom, relatedBy: .Equal,
+                                             toItem: tilesView, attribute: .Bottom, multiplier: 1, constant: 0)
         
         NSLayoutConstraint.activateConstraints([widthConstraint, heightConstraint, xConstraint, yConstraint])
         

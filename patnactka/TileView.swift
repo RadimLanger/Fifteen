@@ -81,7 +81,7 @@ class TileView: UIView {
     }
     
     func createRandomizeButton() {
-        let downPadding =  CGFloat(5)
+        let downPadding =  CGFloat(10)
         let spaceUnderTiles = CGFloat(bounds.width) + downPadding
         let randomizeStringButton = NSLocalizedString("RANDOMIZE", comment: "Randomize button")
         
