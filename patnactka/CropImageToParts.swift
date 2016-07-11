@@ -42,7 +42,7 @@ class CropImage {
     
     func cropImageToPartsPutToArray(cropImageToPiecesRow: Int, cropImageToPiecesColumn: Int) {
         
-        let scale = cropInitializedImage.scale
+        let scale = CGFloat(cropImageToPiecesRows!) / 2
         
         let imageSize = CGSizeMake(cropInitializedImage.size.width/scale, cropInitializedImage.size.height/scale)
         

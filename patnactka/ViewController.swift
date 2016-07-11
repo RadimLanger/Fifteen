@@ -11,8 +11,8 @@ import UIKit
 class ViewController: UIViewController {
     
     //    Inherited classes
-    var circleProgressView = ProgressCircleView()
     var tilesView = TileView()
+    var ProgressView: ProgressCircleView?
     
     //    Setting UI object sizes
     let circleProgressViewSize = CGFloat(200)
@@ -36,6 +36,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         drawTiles()
+        ProgressView = ProgressCircleView(frame: CGRect.zero, puzzleCount: tilesView.sizeMatrix * tilesView.sizeMatrix)
         drawCircle()
         //         Updates progress circle view after clicking on a tile
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(updateProgressCircleView), name: "NumbersOfCorrectlyPlacedTilesChanged", object: nil)
@@ -45,23 +46,26 @@ class ViewController: UIViewController {
         tilesViewHeight = viewHeight
         tilesViewWidth = quaterViewWidth * 4
         
-        
         tilesView.frame = CGRectMake(0, topTilesPadding, tilesViewWidth!, tilesViewHeight!)
         self.view.addSubview(tilesView)
     }
     
     func drawCircle() {
         let positionX = quaterViewWidth
-        let positionY = viewHeight * 0.72
+        let positionY = viewHeight * 0.65
         
-        circleProgressView.frame = CGRectMake(positionX, positionY, circleProgressViewSize, circleProgressViewSize)
+        ProgressView!.frame = CGRectMake(positionX, positionY, circleProgressViewSize, circleProgressViewSize)
         //        Setting the UIView background color to White = 1, but alpha = 0 -> only the circle will be visible
-        circleProgressView.backgroundColor = UIColor(white: 1, alpha: 0)
-        self.view.addSubview(circleProgressView)
+        ProgressView!.backgroundColor = UIColor(white: 1, alpha: 0)
+        self.view.addSubview(ProgressView!)
     }
     
     func updateProgressCircleView() {
-        circleProgressView.counter = tilesView.numberOfCorrectlyPlacedTiles()
+        ProgressView!.counter = tilesView.numberOfCorrectlyPlacedTiles()
+    }
+    
+    func setProgressCircleViewFullNumber() {
+        ProgressView!.puzzleCount = tilesView.numberOfCorrectlyPlacedTiles() + 2
     }
 }
 

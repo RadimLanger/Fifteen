@@ -14,7 +14,7 @@ class TileView: UIView {
     let randomizeButton = UIButton(type: UIButtonType.System)
     //    Matrix touple model
     var matrix = [[(Int,UIButton,image: CGImage)]]()
-    let sizeMatrix = 4 // square matrix 4 * 4
+    let sizeMatrix = 2 // square matrix 4 * 4
     let croppingImageName = "nickCrop.png"
     
     var blankTileCoordinates = (x: 0, y: 0)
@@ -35,15 +35,14 @@ class TileView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.darkGrayColor()
-        
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let croppedImagesToParts = CropImage(croppingImageName: croppingImageName, cropImageToPiecesRows: sizeMatrix, cropImageToPiecesColumns: sizeMatrix)
+        let croppedImage = CropImage(croppingImageName: croppingImageName, cropImageToPiecesRows: sizeMatrix, cropImageToPiecesColumns: sizeMatrix)
         
-        initializeTilesAsButtonsAndSetButtonsImage(croppedImagesToParts.imageStack)
+        initializeTilesAsButtonsAndSetButtonsImage(croppedImage.imageStack)
         initializeSwitchForEnablingPhotos()
         createRandomizeButton()
         
@@ -58,8 +57,9 @@ class TileView: UIView {
             for columnIndex in 0...sizeMatrix - 1 {
                 self.matrix[rowIndex].append((counter, (UIButton(type: UIButtonType.Custom)), croppedImagesForTiles[counter]))
                 
-                let x = positionTileHelper(columnIndex)
-                let y = positionTileHelper(rowIndex)
+                let tileSize = CGFloat(Double(bounds.width) / Double(sizeMatrix))
+                let x = CGFloat(columnIndex) * tileSize
+                let y = CGFloat(rowIndex) * tileSize
                 
                 //                First tile gets white color -> This will be blank tile
                 if counter == 0 {
@@ -71,7 +71,7 @@ class TileView: UIView {
                 
                 matrix[rowIndex][columnIndex].1.setTitle(String(counter), forState: UIControlState.Normal)
                 matrix[rowIndex][columnIndex].1.addTarget(self, action:#selector(self.buttonClicked), forControlEvents: .TouchUpInside)
-                matrix[rowIndex][columnIndex].1.frame = CGRectMake(x, y, quaterViewWidth, quaterViewWidth)
+                matrix[rowIndex][columnIndex].1.frame = CGRectMake(x, y, tileSize, tileSize)
                 
                 counter = counter + 1
                 self.addSubview(matrix[rowIndex][columnIndex].1)
@@ -80,40 +80,27 @@ class TileView: UIView {
         
     }
     
-    //    Returns x,y coordinates for tiles
-    func positionTileHelper(position: Int) -> CGFloat {
-        
-        if position == 0 {
-            return 0
-        } else if position == 1 {
-            return quaterViewWidth
-        } else if position == 2 {
-            return 2 * quaterViewWidth
-        } else {
-            return 3 * quaterViewWidth
-        }
-    }
-    
     func createRandomizeButton() {
-        let matrixSize = CGFloat(sizeMatrix)
+        let downPadding =  CGFloat(5)
+        let spaceUnderTiles = CGFloat(bounds.width) + downPadding
         let randomizeStringButton = NSLocalizedString("RANDOMIZE", comment: "Randomize button")
         
         randomizeButton.setTitle(randomizeStringButton, forState: .Normal)
         randomizeButton.addTarget(self, action:#selector(self.randomizeTiles), forControlEvents: .TouchUpInside)
         //        labelSize for knowing how big is going to be the button
         let labelSize = randomizeButton.sizeThatFits(CGSizeMake(self.frame.size.width, CGFloat.max)) ?? CGSizeZero
-        randomizeButton.frame = CGRectMake(20, (quaterViewWidth * matrixSize) + 5, labelSize.width, labelSize.height)
+        randomizeButton.frame = CGRectMake(20, spaceUnderTiles, labelSize.width, labelSize.height)
         
         self.addSubview(randomizeButton)
     }
     
     
     func initializeSwitchForEnablingPhotos() {
-        let matrixSize = CGFloat(sizeMatrix)
         let downPadding = CGFloat(10)
         let rightPadding = CGFloat(15)
+        let spaceUnderTiles = CGFloat(bounds.width) + downPadding
         
-        enablePicturesSwitch.frame = CGRectMake((quaterViewWidth * 3) - rightPadding, (quaterViewWidth * matrixSize) + downPadding, 0, 0)
+        enablePicturesSwitch.frame = CGRectMake((quaterViewWidth * 3) - rightPadding, spaceUnderTiles, 0, 0)
         enablePicturesSwitch.on = true
         enablePicturesSwitch.setOn(true, animated: false);
         enablePicturesSwitch.addTarget(self, action: #selector(self.refreshTiles), forControlEvents: .ValueChanged)
@@ -162,8 +149,7 @@ class TileView: UIView {
         }
         setNeedsDisplay()
         //        Calls method in ViewController when we click on a tile
-        NSNotificationCenter.defaultCenter().postNotificationName("NumbersOfCorrectlyPlacedTilesChanged", object: self)
-        
+        NSNotificationCenter.defaultCenter().postNotificationName("NumbersOfCorrectlyPlacedTilesChanged", object: self)        
     }
     
     
@@ -222,15 +208,16 @@ class TileView: UIView {
     
     func randomizeMatrix() {
         //         4 random Int numbers are generated
-        let random = Int(arc4random_uniform(4))
-        var random2 = Int(arc4random_uniform(4))
-        let random3 = Int(arc4random_uniform(4))
-        var random4  = Int(arc4random_uniform(4))
+        let matrixSize = UInt32(sizeMatrix)
+        let random = Int(arc4random_uniform(matrixSize))
+        var random2 = Int(arc4random_uniform(matrixSize))
+        let random3 = Int(arc4random_uniform(matrixSize))
+        var random4  = Int(arc4random_uniform(matrixSize))
         //    change the random2,random4 to be differend (for x,y coordinates) or (for clickedTile and blankTile)
         //      the x != y or clickedTile.x/y != blankTile.x/y
         while (random == random2 && random3 == random4) || (random == random3 && random2 == random4) {
-            random2 = Int(arc4random_uniform(4))
-            random4 = Int(arc4random_uniform(4))
+            random2 = Int(arc4random_uniform(matrixSize))
+            random4 = Int(arc4random_uniform(matrixSize))
         }
         
         switchBlankClickedTiles((random, random2), blankTileCoordinates: (random3, random4))

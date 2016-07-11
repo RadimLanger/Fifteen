@@ -2,15 +2,31 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "nickCrop-2.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "nickCrop.png",
+      "filename" : "nickCrop-1.png",
       "scale" : "2x"
     },
     {
+      "resizing" : {
+        "mode" : "9-part",
+        "center" : {
+          "mode" : "tile",
+          "width" : 1,
+          "height" : 1
+        },
+        "cap-insets" : {
+          "bottom" : 400,
+          "top" : 399,
+          "right" : 400,
+          "left" : 399
+        }
+      },
       "idiom" : "universal",
+      "filename" : "nickCrop.png",
       "scale" : "3x"
     }
   ],

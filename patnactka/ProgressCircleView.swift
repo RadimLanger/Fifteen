@@ -10,11 +10,21 @@ import UIKit
 
 class ProgressCircleView: UIView {
     
-    let puzzleCount = 16
+    var puzzleCount: Int?
     let π: CGFloat = CGFloat(M_PI)
     
+    init(frame: CGRect, puzzleCount: Int?) {
+        super.init(frame: frame)
+        self.puzzleCount = puzzleCount
+//        Setting the counter to max at the beginning
+        counter = puzzleCount!
+    }
     
-    var counter: Int = 16 {
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    var counter: Int = 0 {
         didSet {
             if counter <=  puzzleCount {
                 //the view needs to be refreshed
@@ -33,7 +43,7 @@ class ProgressCircleView: UIView {
             counterColor = UIColor.greenColor()
             outlineColor = UIColor.blueColor()
         }
-        else if counter > puzzleCount / 2 {
+        else if counter > puzzleCount! / 2 {
             counterColor = UIColor.orangeColor()
             outlineColor = UIColor.purpleColor()
         }
@@ -70,7 +80,7 @@ class ProgressCircleView: UIView {
         let angleDifference: CGFloat = 2 * π - startAngle + endAngle
         
         //then calculating the arc for each single glass
-        let arcLengthPerGlass = angleDifference / CGFloat(puzzleCount)
+        let arcLengthPerGlass = angleDifference / CGFloat(puzzleCount!)
         
         //then multiplying out by the actual glasses drunk
         let outlineEndAngle = arcLengthPerGlass * CGFloat(counter) + startAngle
